@@ -18,9 +18,7 @@ public class Demo extends JFrame {
     private static ObjectOutputStream objectOutputStream;
     private static Store store;
     private static MySQL database;
-    static Scanner scanInput = new Scanner(System.in);
-    static Scanner inputEnglish = new Scanner(System.in);
-    static Scanner inputViet = new Scanner(System.in);
+
 
     private JPanel contentPaneLayout;
     private JTextField inputWordEnglish;
@@ -40,12 +38,18 @@ public class Demo extends JFrame {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            JOptionPane.showMessageDialog(new JFrame(), "The driver has not received any packets from the server."
+                    , "Warning",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         Demo frame = new Demo();
         frame.setUpView();
+        frame.setTitle("Search word");
         frame.setVisible(true);
-        frame.setSize(400, 400);
+        frame.setSize(600, 500);
+     //   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     //   frame.pack(); // give a suitable size to window automatically
 
 
     }
@@ -58,6 +62,8 @@ public class Demo extends JFrame {
         setContentPane(contentPaneLayout);
         contentPaneLayout.setLayout(null);
 
+
+
         JLabel lblNewLabel = new JLabel("Vietnamese");
         lblNewLabel.setBounds(320, 10, 92, 14);
         contentPaneLayout.add(lblNewLabel);
@@ -67,25 +73,27 @@ public class Demo extends JFrame {
         lblNewLabel_5.setBounds(230, 0, 80, 14);
         contentPaneLayout.add(lblNewLabel_5);
 
+
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("English");
         comboBox.addItem("Vietnamese");
-        comboBox.addActionListener(new ActionListener() {
+        comboBox.addActionListener(e -> {
+            if (comboBox.getSelectedIndex() == 0){
+                lblNewLabel.setText("Vietnamese");
+                isCheckSearchEnglish = true;
+                removalItem();
 
+            }else {
+                lblNewLabel.setText("English");
+                isCheckSearchEnglish = false;
+                removalItem();
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (comboBox.getSelectedIndex() == 0){
-                    lblNewLabel.setText("Vietnamese");
-                    isCheckSearchEnglish = true;
-                }else {
-                    lblNewLabel.setText("English");
-                    isCheckSearchEnglish = false;
-                }
             }
         });
         comboBox.setBounds(10, 10, 150, 20);
+        comboBox.setLocation(10,11);
         contentPaneLayout.add(comboBox);
+
 
 //        JLabel lblNewLabel_2 = new JLabel("English");
 //        lblNewLabel_2.setBounds(10, 20, 60, 15);
@@ -200,17 +208,20 @@ public class Demo extends JFrame {
         //btn Delete
         JButton btnRemove = new JButton("Remove");
         btnRemove.addActionListener(e -> {
-            inputWordEnglish.setText("");
-            txtWordVietNam.setText("");
-            txtTypeWord.setText("");
-            txtExampleEnglish.setText("");
-            txtExampleViet.setText("");
+            removalItem();
         });
         btnRemove.setBounds(230, 270, 80, 25);
         contentPaneLayout.add(btnRemove);
     }
 
-
+    private void removalItem(){
+        inputWordEnglish.setText("");
+        txtWordVietNam.setText("");
+        txtTypeWord.setText("");
+        txtExampleEnglish.setText("");
+        txtExampleViet.setText("");
+    }
+    
 
 }
 
