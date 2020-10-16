@@ -1,17 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
 
 public class Demo extends JFrame {
 
@@ -21,11 +12,11 @@ public class Demo extends JFrame {
 
 
     private JPanel contentPaneLayout;
-    private JTextField inputWordEnglish;
-    private JTextField txtWordVietNam;
+    private TextArea inputWordEnglish;
+    private TextArea txtWordVietNamese;
     private JTextField txtTypeWord;
-    private JTextField txtExampleEnglish;
-    private JTextField txtExampleViet;
+    private TextArea txtExampleEnglish;
+    private TextArea txtExampleViet;
     private boolean isCheckSearchEnglish = true;
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -45,9 +36,9 @@ public class Demo extends JFrame {
 
         Demo frame = new Demo();
         frame.setUpView();
-        frame.setTitle("Search word");
+        frame.setTitle("DICTIONARY");
         frame.setVisible(true);
-        frame.setSize(600, 500);
+        frame.setSize(700, 400);
      //   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      //   frame.pack(); // give a suitable size to window automatically
 
@@ -65,13 +56,13 @@ public class Demo extends JFrame {
 
 
         JLabel lblNewLabel = new JLabel("Vietnamese");
-        lblNewLabel.setBounds(320, 10, 92, 14);
+        lblNewLabel.setBounds(390, 10, 92, 14);
         contentPaneLayout.add(lblNewLabel);
 
-        JLabel lblNewLabel_5 = new JLabel("DICTIONARY");
-        lblNewLabel_5.setBackground(UIManager.getColor("Button.darkShadow"));
-        lblNewLabel_5.setBounds(230, 0, 80, 14);
-        contentPaneLayout.add(lblNewLabel_5);
+//        JLabel lblNewLabel_5 = new JLabel("DICTIONARY");
+//        lblNewLabel_5.setBackground(UIManager.getColor("Button.darkShadow"));
+//        lblNewLabel_5.setBounds(230, 0, 80, 14);
+//        contentPaneLayout.add(lblNewLabel_5);
 
 
         JComboBox comboBox = new JComboBox();
@@ -100,22 +91,27 @@ public class Demo extends JFrame {
 //        contentPaneLayout.add(lblNewLabel_2);
 
         // input text word english
-        inputWordEnglish = new JTextField();
-        inputWordEnglish.setBounds(10, 40, 200, 60);
+        inputWordEnglish = new TextArea(5,1);
+        inputWordEnglish.setBounds(10, 40, 250, 110);
         contentPaneLayout.add(inputWordEnglish);
         inputWordEnglish.setColumns(10);
 
 
 
         //input orr output Viet nam
-        txtWordVietNam = new JTextField();
-        txtWordVietNam.setBounds(320, 40, 200, 60);
-        contentPaneLayout.add(txtWordVietNam);
-        txtWordVietNam.setColumns(10);
+        txtWordVietNamese = new TextArea(5,1);
+        txtWordVietNamese.setBounds(390, 40, 250, 110);
+        contentPaneLayout.add(txtWordVietNamese);
+        txtWordVietNamese.setColumns(10);
+
+        JLabel lblNewLabel_3 = new JLabel("Type");
+        lblNewLabel_3.setBounds(10, 160, 86, 14);
+        contentPaneLayout.add(lblNewLabel_3);
+
 
         // out type word
         txtTypeWord = new JTextField();
-        txtTypeWord.setBounds(10, 123, 200, 20);
+        txtTypeWord.setBounds(10, 175, 200, 20);
         contentPaneLayout.add(txtTypeWord);
         txtTypeWord.setColumns(10);
 
@@ -127,33 +123,32 @@ public class Demo extends JFrame {
 
 
 
-        JLabel lblNewLabel_4 = new JLabel("Example english");
-        lblNewLabel_4.setBounds(10, 150, 200, 14);
+        JLabel lblNewLabel_4 = new JLabel("Example ");
+        lblNewLabel_4.setBounds(10, 200, 200, 14);
         contentPaneLayout.add(lblNewLabel_4);
 
-        JLabel lblNewLabel_3 = new JLabel("Type");
-        lblNewLabel_3.setBounds(10, 105, 86, 14);
-        contentPaneLayout.add(lblNewLabel_3);
 
         //output example English
-        txtExampleEnglish = new JTextField();
-        txtExampleEnglish.setBounds(10, 180, 200, 83);
+        txtExampleEnglish = new TextArea(5,1);
+        txtExampleEnglish.setBounds(10, 220, 250, 110);
         contentPaneLayout.add(txtExampleEnglish);
         txtExampleEnglish.setColumns(10);
 
-        JLabel lblNewLabel_6 = new JLabel("Example Viet nam");
-        lblNewLabel_6.setBounds(320, 150, 200, 14);
+        JLabel lblNewLabel_6 = new JLabel("Ví dụ ");
+        lblNewLabel_6.setBounds(390, 200, 200, 14);
         contentPaneLayout.add(lblNewLabel_6);
 
         //output example Viet
-        txtExampleViet = new JTextField();
-        txtExampleViet.setBounds(320, 180, 200, 83);
+        txtExampleViet = new TextArea(5,1);
+        txtExampleViet.setBounds(390, 220, 250, 110);
+        txtExampleViet.requestFocusInWindow();
+        txtExampleViet.setPreferredSize(new Dimension(20, 50));
         contentPaneLayout.add(txtExampleViet);
-        txtExampleViet.setColumns(10);
+
 
 
         // btn convert
-        JButton btnConvertWord = new JButton("<=>");
+        JButton btnConvertWord = new JButton("Translation");
         btnConvertWord.addActionListener(e -> {
             //todo handle btn convert
             try {
@@ -165,7 +160,7 @@ public class Demo extends JFrame {
                         System.out.println(words.toString());
                         System.out.println("test");
 
-                        txtWordVietNam.setText(words.getMean());
+                        txtWordVietNamese.setText(words.getMean());
                         txtTypeWord.setText(words.getType());
                         txtExampleEnglish.setText(words.getExemple());
                         txtExampleViet.setText(words.getMean_exemple());
@@ -183,9 +178,11 @@ public class Demo extends JFrame {
                         System.out.println(words.toString());
                         System.out.println("test");
 
-                        txtWordVietNam.setText(words.getWord());
+                        txtWordVietNamese.setText(words.getWord());
                         txtTypeWord.setText(words.getType());
                         txtExampleEnglish.setText(words.getExemple());
+                        String txtViduVn = words.getMean_exemple();
+
                         txtExampleViet.setText(words.getMean_exemple());
                     }else {
                         String message = "Từ bạn tìm không tồn tại! \n" +
@@ -202,7 +199,7 @@ public class Demo extends JFrame {
             }
 
         });
-        btnConvertWord.setBounds(235, 50, 60, 25);
+        btnConvertWord.setBounds(280, 50, 100, 25);
         contentPaneLayout.add(btnConvertWord);
 
         //btn Delete
@@ -210,18 +207,19 @@ public class Demo extends JFrame {
         btnRemove.addActionListener(e -> {
             removalItem();
         });
-        btnRemove.setBounds(230, 270, 80, 25);
+        btnRemove.setBounds(280, 270, 80, 25);
         contentPaneLayout.add(btnRemove);
     }
 
     private void removalItem(){
         inputWordEnglish.setText("");
-        txtWordVietNam.setText("");
+        txtWordVietNamese.setText("");
         txtTypeWord.setText("");
         txtExampleEnglish.setText("");
         txtExampleViet.setText("");
     }
-    
+
+
 
 }
 
