@@ -1,6 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.*;
 
@@ -40,14 +42,14 @@ public class Demo extends JFrame {
         frame.setUpView();
         frame.setTitle("DICTIONARY");
         frame.setVisible(true);
-      //  frame.setSize(700, 400);
+        frame.setSize(850, 650);
      //   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      //   frame.pack(); // give a suitable size to window automatically
 
 
     }
 
-    public void setUpView() throws SQLException {
+    public void setUpView()  {
     	 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setBounds(100, 100, 705, 619);
 	        contentPaneLayout = new JPanel();
@@ -56,8 +58,8 @@ public class Demo extends JFrame {
 	        contentPaneLayout.setLayout(null);
 
 
-	        JLabel lblNewLabel = new JLabel("Vietnamese");
-	        lblNewLabel.setBounds(429, 244, 92, 14);
+	        JLabel lblNewLabel = new JLabel("Việt Nam");
+	        lblNewLabel.setBounds(490, 244, 92, 14);
 	        contentPaneLayout.add(lblNewLabel);
 
 //        JLabel lblNewLabel_5 = new JLabel("DICTIONARY");
@@ -67,16 +69,16 @@ public class Demo extends JFrame {
 
 
         JComboBox comboBox = new JComboBox();
-        comboBox.addItem("English");
-        comboBox.addItem("Vietnamese");
+        comboBox.addItem("Tiếng Anh");
+        comboBox.addItem("Tiếng Việt");
         comboBox.addActionListener(e -> {
             if (comboBox.getSelectedIndex() == 0){
-                lblNewLabel.setText("Vietnamese");
+                lblNewLabel.setText("Tiếng Việt");
                 isCheckSearchEnglish = true;
                 removalItem();
 
             }else {
-                lblNewLabel.setText("English");
+                lblNewLabel.setText("Tiếng Anh");
                 isCheckSearchEnglish = false;
                 removalItem();
 
@@ -94,7 +96,8 @@ public class Demo extends JFrame {
 
         // input text word english
 	    inputWordEnglish = new TextArea(5,1);
-        inputWordEnglish.setBounds(21, 275, 250, 110);
+        inputWordEnglish.setBounds(21, 271, 310, 120);
+       // inputWordEnglish.setFont(new Font("utf-8", Font.ITALIC, 16));
         contentPaneLayout.add(inputWordEnglish);
         inputWordEnglish.setColumns(10);
 
@@ -102,19 +105,19 @@ public class Demo extends JFrame {
 
         //input orr output Viet nam
         txtWordVietNamese = new TextArea(5,1);
-        txtWordVietNamese.setBounds(429, 275, 250, 110);
+        txtWordVietNamese.setBounds(490, 271, 310, 120);
         contentPaneLayout.add(txtWordVietNamese);
         txtWordVietNamese.setColumns(10);
 
-        JLabel lblNewLabel_3 = new JLabel("Type");
-        lblNewLabel_3.setBounds(10, 160, 86, 14);
+        JLabel lblNewLabel_3 = new JLabel("Loại từ");
+        lblNewLabel_3.setBounds(21, 394, 100, 14);
         contentPaneLayout.add(lblNewLabel_3);
 
 
 
         // out type word
         txtTypeWord = new JTextField();
-        txtTypeWord.setBounds(21, 409, 200, 20);
+        txtTypeWord.setBounds(21, 413, 200, 20);
         contentPaneLayout.add(txtTypeWord);
         txtTypeWord.setColumns(10);
 
@@ -127,24 +130,24 @@ public class Demo extends JFrame {
 
 
 
-        JLabel lblNewLabel_4 = new JLabel("Example ");
-        lblNewLabel_4.setBounds(21, 440, 200, 14);
+        JLabel lblNewLabel_4 = new JLabel("Ví dụ tiếng Anh ");
+        lblNewLabel_4.setBounds(21, 440, 230, 14);
         contentPaneLayout.add(lblNewLabel_4);
 
 
         //output example English
         txtExampleEnglish = new TextArea(5,1);
-        txtExampleEnglish.setBounds(21, 460, 250, 110);
+        txtExampleEnglish.setBounds(21, 460, 310, 120);
         contentPaneLayout.add(txtExampleEnglish);
         txtExampleEnglish.setColumns(10);
 
-        JLabel lblNewLabel_6 = new JLabel("Ví dụ ");
-        lblNewLabel_6.setBounds(429, 440, 200, 14);
+        JLabel lblNewLabel_6 = new JLabel("Ví dụ tiếng Việt ");
+        lblNewLabel_6.setBounds(490, 440, 310, 14);
         contentPaneLayout.add(lblNewLabel_6);
 
         //output example Viet
         txtExampleViet = new TextArea(5,1);
-        txtExampleViet.setBounds(429, 460, 250, 110);
+        txtExampleViet.setBounds(490, 460, 310, 120);
         txtExampleViet.requestFocusInWindow();
         txtExampleViet.setPreferredSize(new Dimension(20, 50));
         contentPaneLayout.add(txtExampleViet);
@@ -202,20 +205,33 @@ public class Demo extends JFrame {
             }
 
         });
-        btnConvertWord.setBounds(297, 311, 100, 25);
+        btnConvertWord.setBounds(357, 311, 100, 25);
         contentPaneLayout.add(btnConvertWord);
 
         //btn Delete
-        JButton btnRemove = new JButton("Remove");
+        JButton btnRemove = new JButton("Xóa");
         btnRemove.addActionListener(e -> {
             removalItem();
         });
-        btnRemove.setBounds(303, 500, 80, 25);
+        btnRemove.setBounds(363, 500, 80, 25);
         contentPaneLayout.add(btnRemove);
         
-        JLabel lblNewLabel_2 = new JLabel("New label");
-        lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\DELL\\Desktop\\background.jpg"));
-        lblNewLabel_2.setBounds(0, 1, 689, 228);
+        JLabel lblNewLabel_2 = new JLabel();
+//        lblNewLabel_2.setIcon(new ImageIcon("bg.jpg"));
+//        lblNewLabel_2.getScaledInstance(842, 581, image.SCALE_SMOOTH)
+//        lblNewLabel_2.setBounds(110, 5, 1000, 230);
+
+
+        //Nền
+        lblNewLabel_2 = new JLabel();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("bg.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lblNewLabel_2.setIcon(new ImageIcon(image.getScaledInstance(830, 220, image.SCALE_SMOOTH)));
+        lblNewLabel_2.setBounds(0, 5, 830, 220);
         contentPaneLayout.add(lblNewLabel_2);
     }
 
