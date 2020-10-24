@@ -7,7 +7,7 @@ public class MySQL {
     private ResultSet resultSet;
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root", pass = "";
-    private String db_table = "dictionary", db = "vacabulary_db";
+    private String db_table = "dictionary", db = "datair";
 
 
     public MySQL() throws ClassNotFoundException, SQLException {

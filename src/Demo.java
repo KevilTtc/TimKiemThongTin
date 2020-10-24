@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -16,9 +17,9 @@ public class Demo extends JFrame {
 
 
     private JPanel contentPaneLayout;
-    private TextArea inputWordEnglish;
-    private TextArea txtWordVietNamese;
-    private JTextField txtTypeWord;
+    private JTextArea inputWordEnglish;
+    private JTextArea txtWordVietNamese;
+    private JLabel txtTypeWord;
     private TextArea txtExampleEnglish;
     private TextArea txtExampleViet;
     private boolean isCheckSearchEnglish = true;
@@ -76,14 +77,13 @@ public class Demo extends JFrame {
             if (comboBox.getSelectedIndex() == 0) {
                 lblNewLabel.setText("Tiếng Việt");
                 isCheckSearchEnglish = true;
-                removalItem();
 
             } else {
                 lblNewLabel.setText("Tiếng Anh");
                 isCheckSearchEnglish = false;
-                removalItem();
 
             }
+            removalItem();
         });
         comboBox.setBounds(21, 241, 150, 20);
         //    comboBox.setLocation(10,11);
@@ -95,17 +95,20 @@ public class Demo extends JFrame {
 //        contentPaneLayout.add(lblNewLabel_2);
 
         // input text word english
-        inputWordEnglish = new TextArea(5, 1);
+        inputWordEnglish = new JTextArea(5, 1);
         inputWordEnglish.setBounds(21, 271, 310, 120);
-        inputWordEnglish.setFont(new Font("Verdana", Font.BOLD, 16));
+        inputWordEnglish.setBorder(new LineBorder(Color.BLACK,1));
+        inputWordEnglish.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         //  inputWordEnglish.set
         contentPaneLayout.add(inputWordEnglish);
         inputWordEnglish.setColumns(10);
 
 
         //input orr output Viet nam
-        txtWordVietNamese = new TextArea(5, 1);
+        txtWordVietNamese = new JTextArea( 5,1);
         txtWordVietNamese.setBounds(490, 271, 310, 120);
+        txtWordVietNamese.setBorder(new LineBorder(Color.BLACK,1));
+        txtWordVietNamese.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         contentPaneLayout.add(txtWordVietNamese);
         txtWordVietNamese.setColumns(10);
 
@@ -115,10 +118,11 @@ public class Demo extends JFrame {
 
 
         // out type word
-        txtTypeWord = new JTextField();
+        txtTypeWord = new JLabel();
         txtTypeWord.setBounds(21, 413, 200, 20);
+        txtTypeWord.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+        txtTypeWord.setBorder(new LineBorder(Color.BLACK,1));
         contentPaneLayout.add(txtTypeWord);
-        txtTypeWord.setColumns(10);
 
         JLabel lblNewLabel_1 = new JLabel("");
         lblNewLabel_1.setBounds(70, 1, 46, 14);
@@ -133,6 +137,7 @@ public class Demo extends JFrame {
         //output example English
         txtExampleEnglish = new TextArea(5, 1);
         txtExampleEnglish.setBounds(21, 460, 310, 120);
+        txtExampleEnglish.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         contentPaneLayout.add(txtExampleEnglish);
         txtExampleEnglish.setColumns(10);
 
@@ -143,6 +148,7 @@ public class Demo extends JFrame {
         //output example Viet
         txtExampleViet = new TextArea(5, 1);
         txtExampleViet.setBounds(490, 460, 310, 120);
+        txtExampleViet.setFont(new Font("Serif", Font.PLAIN, 14));
         txtExampleViet.requestFocusInWindow();
         txtExampleViet.setPreferredSize(new Dimension(20, 50));
         contentPaneLayout.add(txtExampleViet);
@@ -261,4 +267,3 @@ public class Demo extends JFrame {
 
 }
 
-               
