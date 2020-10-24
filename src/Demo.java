@@ -16,7 +16,7 @@ public class Demo extends JFrame {
 
 
     private JPanel contentPaneLayout;
-    private TextArea inputWordEnglish;
+    private JTextArea inputWordEnglish;
     private TextArea txtWordVietNamese;
     private JTextField txtTypeWord;
     private TextArea txtExampleEnglish;
@@ -95,7 +95,7 @@ public class Demo extends JFrame {
 //        contentPaneLayout.add(lblNewLabel_2);
 
         // input text word english
-        inputWordEnglish = new TextArea(5, 1);
+        inputWordEnglish = new JTextArea(5, 1);
         inputWordEnglish.setBounds(21, 271, 310, 120);
         inputWordEnglish.setFont(new Font("Verdana", Font.BOLD, 16));
         //  inputWordEnglish.set
