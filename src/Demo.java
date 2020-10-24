@@ -161,20 +161,26 @@ public class Demo extends JFrame {
         btnConvertWord.addActionListener(e -> {
             //todo handle btn convert
             try {
-                if (isCheckSearchEnglish) {
-                    store = new Store(database.getWordsFlowEnglish(inputWordEnglish.getText().trim()));
-                    store.getWord();
-                    Words words = store.getWord();
-                    if (words.getType() != null) {
-                        System.out.println(words.toString());
-                        System.out.println("test");
+                if (inputWordEnglish.getText().equals("")){
+                    String message = "Từ bạn tìm không tồn tại! \n" +
+                            "Vui lòng kiểm tra lại";
+                    JOptionPane.showMessageDialog(new JFrame(), message, "Warning",
+                            JOptionPane.WARNING_MESSAGE);
+                }else {
+                    if (isCheckSearchEnglish) {
+                        store = new Store(database.getWordsFlowEnglish(inputWordEnglish.getText().trim()));
+                        store.getWord();
+                        Words words = store.getWord();
+                        if (words.getType() != null) {
+                            System.out.println(words.toString());
+                            System.out.println("test");
 
-                        txtWordVietNamese.setText(words.getMean());
-                        txtTypeWord.setText(words.getType());
-                        txtExampleEnglish.setText(words.getExemple());
+                            txtWordVietNamese.setText(words.getMean());
+                            txtTypeWord.setText(words.getType());
+                            txtExampleEnglish.setText(words.getExemple());
 
-                        String wordViet = words.getMean_exemple();
-                        txtExampleViet.setText(wordViet);
+                            String wordViet = words.getMean_exemple();
+                            txtExampleViet.setText(wordViet);
 //                        String strOutWordViet = "";
 //                        int size = wordViet.length();
 //                        if (wordViet.length() > 50 ) {
@@ -184,33 +190,35 @@ public class Demo extends JFrame {
 //                            txtExampleViet.setText(wordViet);
 //                        }
 
-                    } else {
-                        String message = "Từ bạn tìm không tồn tại! \n" +
-                                "Vui lòng kiểm tra lại";
-                        JOptionPane.showMessageDialog(new JFrame(), message, "Warning",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } else if (!isCheckSearchEnglish) {
-                    store = new Store(database.getWordsFlowVietNam(inputWordEnglish.getText().trim()));
-                    store.getWord();
-                    Words words = store.getWord();
-                    if (words.getType() != null) {
-                        System.out.println(words.toString());
-                        System.out.println("test");
+                        } else {
+                            String message = "Từ bạn tìm không tồn tại! \n" +
+                                    "Vui lòng kiểm tra lại";
+                            JOptionPane.showMessageDialog(new JFrame(), message, "Warning",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else if (!isCheckSearchEnglish) {
+                        store = new Store(database.getWordsFlowVietNam(inputWordEnglish.getText().trim()));
+                        store.getWord();
+                        Words words = store.getWord();
+                        if (words.getType() != null) {
+                            System.out.println(words.toString());
+                            System.out.println("test");
 
-                        txtWordVietNamese.setText(words.getWord());
-                        txtTypeWord.setText(words.getType());
-                        txtExampleEnglish.setText(words.getExemple());
-                        String txtViduVn = words.getMean_exemple();
+                            txtWordVietNamese.setText(words.getWord());
+                            txtTypeWord.setText(words.getType());
+                            txtExampleEnglish.setText(words.getExemple());
+                            String txtViduVn = words.getMean_exemple();
 
-                        txtExampleViet.setText(words.getMean_exemple());
-                    } else {
-                        String message = "Từ bạn tìm không tồn tại! \n" +
-                                "Vui lòng kiểm tra lại";
-                        JOptionPane.showMessageDialog(new JFrame(), message, "Warning",
-                                JOptionPane.ERROR_MESSAGE);
+                            txtExampleViet.setText(words.getMean_exemple());
+                        } else {
+                            String message = "Từ bạn tìm không tồn tại! \n" +
+                                    "Vui lòng kiểm tra lại";
+                            JOptionPane.showMessageDialog(new JFrame(), message, "Warning",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
+
 
 
             } catch (SQLException throwables) {
