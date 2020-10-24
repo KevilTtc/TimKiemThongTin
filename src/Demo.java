@@ -77,13 +77,14 @@ public class Demo extends JFrame {
             if (comboBox.getSelectedIndex() == 0) {
                 lblNewLabel.setText("Tiếng Việt");
                 isCheckSearchEnglish = true;
+                removalItem();
 
             } else {
                 lblNewLabel.setText("Tiếng Anh");
                 isCheckSearchEnglish = false;
+                removalItem();
 
             }
-            removalItem();
         });
         comboBox.setBounds(21, 241, 150, 20);
         //    comboBox.setLocation(10,11);
